@@ -1,33 +1,153 @@
+@import url("https://fonts.googleapis.com/css?family=EB+Garamond|Oswald&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300&display=swap");
+
+* {
+  box-model: border-box;
+}
+html,
+body {
+  width: 100%;
+  font-family: "Open Sans";
+}
+
+.positioner {
+  max-width: 850px;
+  margin: auto;
+}
+.client {
+  border: 30px red solid;
+  border-radius: 10px;
+}
+.api-selector {
+  border: 1px solid black;
+  background: gray;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+select,
+input[type="text"] {
+  width: 80%;
+  padding: 10px 22px;
+  margin: 5px 5px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  margin: auto;
+}
+.msg-inputs {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Open Sans Condensed";
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
 .App {
   text-align: center;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.deleteText {
+  margin: 8px;
+  color: red;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.controls {
+  display: inline-block;
+  text-align: right;
+  width: 20%;
+}
+.deleteText:hover {
+  cursor: pointer;
+}
+.from {
+  display: inline-block;
+  font-family: "Open Sans Condensed";
+  font-size: larger;
+  font-weight: bold;
+}
+
+button {
+  padding: 10px;
+  background: #d0d0d0;
+  border-radius: 5px;
+  border: 1px solid black;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+}
+button:hover {
+  color: white;
+  background: black;
+  cursor: pointer;
+}
+button:active {
+  color: black;
+  background: white;
+}
+.delete,
+.delete button {
+  display: inline-block;
+  text-align: right;
+}
+.delete button:hover {
+  background: red;
+}
+.editText {
+  margin: 8px;
+  color: blue;
+}
+.editText:hover {
+  cursor: pointer;
+}
+.message-list {
+}
+.message-list-controls {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 5px 40px;
+}
+
+.message-list ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+  margin: 0;
+  text-align: center;
+  border-radius: 10px;
+  list-style-type: none;
+}
+.message-li {
+  padding: 6px;
+  margin: 5px 0px;
+  flex-grow: 1;
+  width: 100%;
+  text-align: left;
+  border-radius: 10px;
+  border: 1px black solid;
+  background: #e0e0e0;
 }
 
-.App-link {
-  color: #61dafb;
-}
+.message-text {
+  padding: 10px;
+  width: 100%;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  /* font-weight: bold; */
+}
+.message-row {
+  width: 100%;
+  display: flex;
+}
+.timestamp {
+  text-align: right;
+}
+.message:last-of-type {
+  background: red;
 }
