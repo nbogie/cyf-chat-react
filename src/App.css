@@ -1,28 +1,49 @@
-@import url("https://fonts.googleapis.com/css?family=EB+Garamond|Oswald&display=swap");
+/*@import url("https://fonts.googleapis.com/css?family=EB+Garamond|Oswald&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display|Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Fjalla+One|Noto+Sans&display=swap");
+*/
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300&display=swap");
 
 * {
-  box-model: border-box;
+  box-sizing: border-box;
 }
 html,
 body {
   width: 100%;
   font-family: "Open Sans";
 }
+.from {
+  font-family: "Open Sans Condensed";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Open Sans Condensed";
+}
+
+/* font-family: "Open Sans";
+  font-family: "Open Sans Condensed";
+*/
 
 .positioner {
   max-width: 850px;
   margin: auto;
 }
 .client {
-  border: 30px red solid;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 .api-selector {
   border: 1px solid black;
-  background: gray;
+  background: gainsboro;
   border-radius: 10px;
   padding: 20px;
+  display: flex;
 }
 
 select,
@@ -33,19 +54,6 @@ input[type="text"] {
   box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   margin: auto;
-}
-.msg-inputs {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Open Sans Condensed";
 }
 
 ul {
@@ -68,16 +76,17 @@ ul {
 .deleteText:hover {
   cursor: pointer;
 }
+
 .from {
   display: inline-block;
-  font-family: "Open Sans Condensed";
   font-size: larger;
   font-weight: bold;
 }
 
 button {
   padding: 10px;
-  background: #d0d0d0;
+  margin: 2px;
+  background: gainsboro;
   border-radius: 5px;
   border: 1px solid black;
   box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
@@ -107,21 +116,13 @@ button:active {
   cursor: pointer;
 }
 .message-list {
-}
-.message-list-controls {
   display: flex;
-  flex-direction: row-reverse;
-  padding: 5px 40px;
+  flex-direction: column;
 }
-
 .message-list ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin: 0;
-  text-align: center;
-  border-radius: 10px;
   list-style-type: none;
 }
 .message-li {
@@ -131,8 +132,8 @@ button:active {
   width: 100%;
   text-align: left;
   border-radius: 10px;
-  border: 1px black solid;
-  background: #e0e0e0;
+  background: whitesmoke;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 .message-text {
@@ -149,5 +150,37 @@ button:active {
   text-align: right;
 }
 .message:last-of-type {
-  background: red;
+  background: rgba(0, 0, 0, 0.2);
+}
+.refresh {
+  align-self: flex-end;
+}
+/*
+.chat-form-container {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  max-width: 850px;
+}
+*/
+.chat-form {
+  padding: 20px 0;
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+  border-top: 10px darkgray solid;
+}
+.message-inputs {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+  padding-bottom: 10px;
+}
+
+.form-buttons {
+  align-self: flex-end;
 }

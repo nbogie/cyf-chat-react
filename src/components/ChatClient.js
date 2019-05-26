@@ -6,7 +6,11 @@ import APISelector from "./APISelector.js";
 import moment from "moment";
 
 class ChatClient extends Component {
-  state = { messages: FakeMessages, messageBeingEdited: null };
+  state = {
+    messages: FakeMessages,
+    settingsHidden: true,
+    messageBeingEdited: null
+  };
   api = new ChatAPI("http://localhost:3001");
 
   handleChangedAPI = url => {
@@ -32,11 +36,22 @@ class ChatClient extends Component {
       .then(json => this.setState({ messages: json.slice(-3) }));
   };
 
+  toggleHideSettings = () =>
+    this.setState(p => {
+      return {
+        settingsHidden: !p.settingsHidden
+      };
+    });
+
   render() {
     return (
       <section className="client">
-        <h1>CYF Chat Client</h1>
-        <APISelector handleChangedAPI={this.handleChangedAPI} />
+        <button onClick={this.toggleHideSettings}>
+          {this.state.settingsHidden ? "Set API" : "Hide API"}
+        </button>
+        {this.state.settingsHidden ? null : (
+          <APISelector handleChangedAPI={this.handleChangedAPI} />
+        )}
         <MessageList
           messages={this.state.messages}
           handleDeleteMessage={this.handleDeleteMessage}
@@ -56,7 +71,6 @@ class ChatClient extends Component {
 function MessageList(props) {
   return (
     <section className="message-list">
-      <h3>Messages</h3>
       <ul>
         {props.messages.map(m => (
           <Message
@@ -67,11 +81,9 @@ function MessageList(props) {
           />
         ))}
       </ul>
-      <div class="message-list-controls">
-        <button class="refresh" onClick={props.refreshMessages}>
-          Refresh Messages
-        </button>
-      </div>
+      <button className="refresh" onClick={props.refreshMessages}>
+        Refresh Messages
+      </button>
     </section>
   );
 }
@@ -87,9 +99,9 @@ function Message(props) {
         <From from={props.data.from} /> :{" "}
       </div>
       <div className="message-row">
-        <span className="message-text">{props.data.text}</span>
+        <span className="message-text">"{props.data.text}"</span>
         <div className="controls">
-          <button onClick={event => props.onEditClicked(props.data)}>
+          <button disabled onClick={event => props.onEditClicked(props.data)}>
             EDIT
           </button>
           <div className="delete">

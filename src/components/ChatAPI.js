@@ -16,7 +16,7 @@ class API {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => res.json());
+    }).then(res => res);
 
   deleteMessage = id =>
     fetch(this.resolve(`/messages/${id}`), {
