@@ -40,7 +40,7 @@ h6 {
 }
 .api-selector {
   border: 1px solid black;
-  background: gainsboro;
+  background: #c44d58;
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -63,18 +63,11 @@ ul {
 .App {
   text-align: center;
 }
-.deleteText {
-  margin: 8px;
-  color: red;
-}
 
 .controls {
   display: inline-block;
   text-align: right;
   width: 20%;
-}
-.deleteText:hover {
-  cursor: pointer;
 }
 
 .from {
@@ -93,20 +86,20 @@ button {
 }
 button:hover {
   color: white;
-  background: black;
+  background: #556270;
   cursor: pointer;
 }
+
 button:active {
   color: black;
   background: white;
 }
-.delete,
+
 .delete button {
-  display: inline-block;
-  text-align: right;
+  background: #c44d58;
 }
 .delete button:hover {
-  background: red;
+  background: #ff6b6b;
 }
 .editText {
   margin: 8px;
@@ -132,7 +125,7 @@ button:active {
   width: 100%;
   text-align: left;
   border-radius: 10px;
-  background: whitesmoke;
+  background: #c7f464;
   box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -165,12 +158,13 @@ button:active {
 */
 .chat-form {
   padding: 20px 0;
-  background: whitesmoke;
+  background: #4ecdc4;
   display: flex;
   flex-direction: column;
   width: 100%;
   margin: auto;
-  border-top: 10px darkgray solid;
+  border-radius: 5px;
+  border-top: 10px #556270 solid;
 }
 .message-inputs {
   flex-grow: 1;
