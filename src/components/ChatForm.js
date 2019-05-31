@@ -9,33 +9,10 @@ function pick(arr) {
 class ChatForm extends Component {
   constructor(props) {
     super(props);
-    this.messageRef = React.createRef();
-    this.fromRef = React.createRef();
   }
-
-  getMessageFromForm = () => {
-    const message = {};
-    message.text = this.messageRef.current.value;
-    message.from = this.fromRef.current.value;
-    return message;
-  };
 
   clearMessageForm = () => {
     this.messageRef.current.value = "";
-  };
-
-  handleSendMessage = event => {
-    const message = this.getMessageFromForm();
-    this.props.api.createMessage(message).then(json => {
-      this.clearMessageForm();
-      this.props.callAfterSendMessage();
-    });
-  };
-  populateForEditing = msg => {
-    //TODO: don't set these values, setState them.
-    this.messageRef.current.value = msg.text;
-    this.fromRef.current.value = msg.from;
-    this.idRef.current.value = msg.id;
   };
 
   generateRandomMessage = () => {
@@ -57,23 +34,26 @@ class ChatForm extends Component {
       <div className="chat-form-container">
         <div className="chat-form">
           <div className="message-inputs">
+            <span>{this.props.messageBeingEdited.id}</span>
             <input
               type="text"
-              ref={this.fromRef}
+              onChange={this.props.formFieldChangeHandler}
+              value={this.props.messageBeingEdited.from}
               name="from"
               placeholder="Your name..."
             />
             <input
               type="text"
-              ref={this.messageRef}
-              name="message"
+              onChange={this.props.formFieldChangeHandler}
+              value={this.props.messageBeingEdited.text}
+              name="text"
               placeholder="Your message..."
             />
           </div>
           <div className="form-buttons">
             <button
               className="btn btn-primary"
-              onClick={this.handleSendMessage}
+              onClick={this.props.handleSendMessage}
             >
               Send
             </button>

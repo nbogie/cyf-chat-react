@@ -6,16 +6,23 @@ import APISelector from "./APISelector.js";
 import moment from "moment";
 
 class ChatClient extends Component {
+  copyInitialMessage = () => {
+    return { from: "", text: "", id: null };
+  };
   state = {
     messages: FakeMessages,
     settingsHidden: true,
-    messageBeingEdited: null
+    messageBeingEdited: this.copyInitialMessage()
   };
   api = new ChatAPI("http://localhost:3001");
 
   handleChangedAPI = url => {
     this.api.setEndpoint(url);
     this.refreshMessages();
+  };
+
+  clearMessageBeingEdited = () => {
+    this.setState({ messageBeingEdited: this.copyInitialMessage() });
   };
 
   componentDidMount() {
@@ -26,8 +33,30 @@ class ChatClient extends Component {
     this.api.deleteMessage(messageId).then(res => this.refreshMessages());
   };
 
+  //todo: correct way to do this with js Object
+  cloneMessage = m => {
+    return { from: m.from, text: m.text, id: m.id };
+  };
+
   handleEditMessage = message => {
-    this.setState({ messageBeingEdited: message });
+    console.log("handle edit message", message);
+    const copyOfMessage = this.cloneMessage(message);
+    this.setState({ messageBeingEdited: copyOfMessage });
+  };
+
+  handleSendMessage = () => {
+    console.log("sending message", this.state.messageBeingEdited);
+    if (this.state.messageBeingEdited.id != null) {
+      this.api.updateMessage(this.state.messageBeingEdited).then(json => {
+        this.clearMessageBeingEdited();
+        this.refreshMessages();
+      });
+    } else {
+      this.api.createMessage(this.state.messageBeingEdited).then(json => {
+        this.clearMessageBeingEdited();
+        this.refreshMessages();
+      });
+    }
   };
 
   refreshMessages = () => {
@@ -42,6 +71,17 @@ class ChatClient extends Component {
         settingsHidden: !p.settingsHidden
       };
     });
+
+  formFieldChanged = event => {
+    const fieldName = event.target.name;
+    const value = event.target.value;
+
+    console.log("changed", {
+      name: event.target.name,
+      value: event.target.value
+    });
+    this.setState(prev => (prev.messageBeingEdited[fieldName] = value));
+  };
 
   render() {
     return (
@@ -61,7 +101,9 @@ class ChatClient extends Component {
         <ChatForm
           api={this.api}
           messageBeingEdited={this.state.messageBeingEdited}
+          formFieldChangeHandler={this.formFieldChanged}
           callAfterSendMessage={this.refreshMessages}
+          handleSendMessage={this.handleSendMessage}
         />
       </section>
     );
@@ -91,6 +133,7 @@ function since(timestamp) {
   const n = moment().diff(moment.parseZone(timestamp), "seconds");
   return `${n} second(s) ago`;
 }
+
 function Message(props) {
   return (
     <li className="message-li">
@@ -101,7 +144,7 @@ function Message(props) {
       <div className="message-row">
         <span className="message-text">"{props.data.text}"</span>
         <div className="controls">
-          <button disabled onClick={event => props.onEditClicked(props.data)}>
+          <button onClick={event => props.onEditClicked(props.data)}>
             EDIT
           </button>
           <div className="delete">

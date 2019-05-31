@@ -18,6 +18,15 @@ class API {
       }
     }).then(res => res);
 
+  updateMessage = msg =>
+    fetch(this.resolve(`/messages/${msg.id}`), {
+      method: "PUT",
+      body: JSON.stringify(msg),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res);
+
   deleteMessage = id =>
     fetch(this.resolve(`/messages/${id}`), {
       method: "DELETE"
